@@ -15,5 +15,8 @@ A simple and easy-to-use Burp Suite Python plugin for escaping JSON payloads.
 
 6.The escaped JSON payload will be displayed in the JTextArea, where you can select and copy the text
 
+![image](https://user-images.githubusercontent.com/23627154/214848131-1e501162-a931-45fb-8fb8-c48cfab5f283.png)
+
+
 ## License
 This plugin is licensed under the MIT License.
