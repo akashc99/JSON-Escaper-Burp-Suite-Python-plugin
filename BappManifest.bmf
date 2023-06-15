@@ -1,0 +1,13 @@
+Uuid: 5ebb21c4a50a40db9236067e3812fa3f
+ExtensionType: 2
+Name: JSON Escaper
+RepoName: json-escaper
+ScreenVersion: 1.0
+SerialVersion: 1
+MinPlatformVersion: 0
+ProOnly: False
+Author: Akash C
+ShortDescription: Easily escape JSON payloads
+EntryPoint: JSON-Escaper.py
+BuildCommand: 
+SupportedProducts: Pro, Community
