@@ -1,4 +1,6 @@
 # JSON Escaper Burp Suite plugin
+Version 1.1
+
 The JSON Escaper Burp Suite plugin simplifies the process of escaping JSON payloads for pentesters, as there is no built-in option for this in Burp. This is especially true when working with JSON payloads and trying to ensure that they are properly escaped to prevent errors. It eliminates the need for manual escaping and ensures proper formatting for testing. With its simple interface, the plugin enables you to enter your payload, escape it, and display the result in a JTextArea where you can select and copy the text
 
 ## How to Use
@@ -10,7 +12,11 @@ The JSON Escaper Burp Suite plugin simplifies the process of escaping JSON paylo
 6. Enter the payload in the text field and click on the "Escape" button.
 7. The escaped payload will be displayed in the JTextArea, where you can select and copy the text.
 
-![image](https://user-images.githubusercontent.com/23627154/214889898-72c04535-62c3-430e-bb89-582310d01154.png)
+OR
+
+Install from BApp store.
+
+![POC](https://github-production-user-asset-6210df.s3.amazonaws.com/23627154/246598374-57f92290-73fb-4403-949e-b2230e93bd2e.gif)
 
 
 Please note that it is necessary to have Jython installed in order to use this plugin. If you do not have Jython installed, you can download it from the official website (http://www.jython.org/) and follow the instructions for installation.
