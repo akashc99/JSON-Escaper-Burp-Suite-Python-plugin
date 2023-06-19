@@ -124,3 +124,14 @@ class JSONEscaperTab(ITab):
     def selectAllText(self, text_area):
         # Select all text
         text_area.selectAll()
+
+    def clearText(self, text_area):
+        # Clear the text
+        text_area.setText("")
+
+class BurpExtender(IBurpExtender):
+    def registerExtenderCallbacks(self, callbacks):
+        self._callbacks = callbacks
+        self._helpers = callbacks.getHelpers()
+        callbacks.setExtensionName("JSON Escaper")
+        callbacks.addSuiteTab(JSONEscaperTab(self))
