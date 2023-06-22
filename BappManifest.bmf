@@ -2,8 +2,8 @@ Uuid: 5ebb21c4a50a40db9236067e3812fa3f
 ExtensionType: 2
 Name: JSON Escaper
 RepoName: json-escaper
-ScreenVersion: 1.0
-SerialVersion: 1
+ScreenVersion: 1.1
+SerialVersion: 2
 MinPlatformVersion: 0
 ProOnly: False
 Author: Akash C
