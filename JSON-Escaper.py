@@ -2,7 +2,7 @@ from burp import IBurpExtender, ITab
 from java.awt import GridBagLayout, GridBagConstraints, Insets
 from java.io import PrintWriter
 from java.lang import RuntimeException
-from javax.swing import JPanel, JLabel, JTextField, JButton, JScrollPane, JTextArea, BorderFactory, SwingConstants, JPopupMenu, JMenuItem
+from javax.swing import JPanel, JLabel, JTextField, JButton, JScrollPane, JTextArea, BorderFactory, SwingConstants, JPopupMenu, JMenuItem, JFileChooser
 import json
 
 class JSONEscaperTab(ITab):
@@ -18,6 +18,9 @@ class JSONEscaperTab(ITab):
         self._txtResult.setWrapStyleWord(True)
         self._txtResult.setEditable(True)
         self._scrollPaneResult = JScrollPane(self._txtResult)
+
+        # Add a button for file upload
+        self._btnUpload = JButton("Upload File", actionPerformed=self.uploadFile)
 
         panel = JPanel()
         layout = GridBagLayout()
@@ -46,13 +49,18 @@ class JSONEscaperTab(ITab):
 
         panel.add(self._btnEscape, gbc)
 
+        # Add file upload button in the interface
         gbc.gridy = 3
+        gbc.weighty = 0.0
+        panel.add(self._btnUpload, gbc)
+
+        gbc.gridy = 4
         gbc.weighty = 0.0
         gbc.fill = GridBagConstraints.HORIZONTAL
 
         panel.add(JLabel("Escaped Payload:"), gbc)
 
-        gbc.gridy = 4
+        gbc.gridy = 5
         gbc.weighty = 1.0
         gbc.fill = GridBagConstraints.BOTH
 
@@ -76,11 +84,46 @@ class JSONEscaperTab(ITab):
 
     def escape(self, event):
         try:
+            # Get the payload and split it by lines
             payload = self._txtPayload.getText()
-            json_escaped = json.dumps(payload, separators=(',', ':'), ensure_ascii=False)
+            lines = payload.splitlines()
+
+            # JSON-escape each line and join them with newlines
+            json_escaped_lines = [json.dumps(line, separators=(',', ':'), ensure_ascii=False) for line in lines]
+            json_escaped = "\n".join(json_escaped_lines)
+
+            # Set the escaped payload into the result text area
             self._txtResult.setText(json_escaped)
         except Exception as e:
             self._extender._callbacks.printError(str(e))
+
+    def uploadFile(self, event):
+        # Use JFileChooser to open a file chooser dialog
+        fileChooser = JFileChooser()
+        result = fileChooser.showOpenDialog(None)
+
+        if result == JFileChooser.APPROVE_OPTION:
+            try:
+                # Read the selected file
+                file = fileChooser.getSelectedFile()
+                with open(file.getPath(), 'r') as f:
+                    content = f.read()
+
+                # Set the file content as payload and display it in the payload text area
+                self._txtPayload.setText(content)
+
+                # Split the file content into lines
+                lines = content.splitlines()
+
+                # Escape each line as JSON and join them with newlines
+                json_escaped_lines = [json.dumps(line, separators=(',', ':'), ensure_ascii=False) for line in lines]
+                json_escaped = "\n".join(json_escaped_lines)
+
+                # Display the escaped payload in the result text area
+                self._txtResult.setText(json_escaped)
+
+            except Exception as e:
+                self._extender._callbacks.printError(str(e))
 
     def createPopupMenu(self, text_area):
         # Create the right-click context menu
